@@ -5,8 +5,8 @@ export default function decorate(block) {
       headingEl, 
       stateLabelEl, 
       cityLabelEl,
-      loanButtonE1,
       buyButtonE1, 
+      loanButtonE1,
       ...rest
     ] = block.children;
   
@@ -32,8 +32,8 @@ export default function decorate(block) {
   
     // 🧩 Extract variants and buttons (multifield & buttons from author)
     const variantRows = [];
+    const buyButton = buyButtonE1?.textContent?.trim() || "Check loan offers";
     const loanButton = loanButtonE1?.textContent?.trim();
-  const buyButton = buyButtonE1?.textContent?.trim();
     
   
     rest.forEach((child) => {
