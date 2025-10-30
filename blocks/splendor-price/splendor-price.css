@@ -76,7 +76,14 @@
     border: 2px solid red;
     background: white;
   }
-  
+  .loan-btn:hover {
+    color: red;
+    background: white;
+  }
+  .buy-btn:hover {
+    color: white;
+    background:red;
+  }
   .buy-btn {
     background: red;
     color: white;

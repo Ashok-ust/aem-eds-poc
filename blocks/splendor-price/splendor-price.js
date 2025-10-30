@@ -39,11 +39,7 @@ export default function decorate(block) {
     rest.forEach((child) => {
       const text = child.textContent.trim();
   
-      if (text.toUpperCase().includes('LOAN')) {
-        loanButton = text;
-      } else if (text.toUpperCase().includes('BUY')) {
-        buyButton = text;
-      } else if (text.includes('₹')) {
+    if (text.includes('₹')) {
         // variant and price rows
         const [variantName, price] = text.split('₹').map((t) => t.trim());
         variantRows.push({ variantName, price: `₹ ${price}` });
