@@ -5,6 +5,8 @@ export default function decorate(block) {
       headingEl, 
       stateLabelEl, 
       cityLabelEl,
+      variantNameE1,
+      priceE1,
       buyButtonE1, 
       loanButtonE1,
       ...rest
@@ -67,7 +69,10 @@ export default function decorate(block) {
         </select>
       </div>
     `;
-  
+
+    const variantName = variantNameE1?.textContent?.trim() || 'Splendor+ Drum Brake OBD2B';
+    const price = priceE1?.textContent?.trim() || '₹73,902';
+
     // 📊 Table Section
     const table = document.createElement('table');
     table.classList.add('splendor-table');
@@ -81,8 +86,8 @@ export default function decorate(block) {
     table.innerHTML = `
       <thead>
         <tr>
-          <th>Variant</th>
-          <th>Ex-Showroom Price</th>
+          <th>${variantName}</th>
+          <th>${price}</th>
         </tr>
       </thead>
       <tbody>${tbody}</tbody>

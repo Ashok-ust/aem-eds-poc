@@ -266,6 +266,17 @@
           },
           {
             "component": "text",
+            "name": "variantName",
+            "label": "Variant Name"
+          },
+          {
+            "component": "text",
+            "name": "price",
+            "label": "Ex-Showroom Price"
+          }
+          ,
+          {
+            "component": "text",
             "name": "loanButton",
             "label": "Loan Button Text",
             "default": "CHECK LOAN OFFERS"
