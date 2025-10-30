@@ -37,7 +37,7 @@
   }
   
   .dropdown select {
-    width: 250px;
+    width: 324px;
     padding: 10px;
     border-radius: 6px;
     border: 1px solid #ccc;
@@ -48,14 +48,29 @@
     border-collapse: collapse;
     margin: 16px 0;
   }
-  
+  .splendor-table .variant-header{
+    width: 52%;
+    font-family: "TSTAR-PRO-Heavy";
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
+  .splendor-table .price{
+    font-family: "TSTAR-PRO-Heavy";
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
   .splendor-table th,
   .splendor-table td {
+    font-family: "TSTAR-PRO-Medium";
+    font-weight: 400;
+    font-size: 16px;
     text-align: left;
     padding: 12px 8px;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
   }
-  
+  .splendor-price-wrapper{
+    margin: unset;
+  }
   .splendor-buttons {
     display: flex;
     gap: 24px;

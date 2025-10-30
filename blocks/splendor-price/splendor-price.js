@@ -86,11 +86,16 @@ export default function decorate(block) {
     table.innerHTML = `
       <thead>
         <tr>
-          <th>${variantName}</th>
-          <th>${price}</th>
+          <th class="variant-header">${variantName}</th>
+          <th class="price">${price}</th>
         </tr>
       </thead>
-      <tbody>${tbody}</tbody>
+     <tbody>
+      <tr><td>SPLENDOR+ DRUM BRAKE OBD2B</td><td>₹ 73,902</td></tr>
+      <tr><td>SPLENDOR+ I3S OBD2B</td><td>₹ 75,055</td></tr>
+      <tr><td>SPLENDOR+ SPECIAL EDITIONS OBD2B</td><td>₹ 75,055</td></tr>
+      <tr><td>125 MILLION EDITION</td><td>₹ 76,437</td></tr>
+    </tbody>
     `;
   
     // 🔘 Buttons Section
