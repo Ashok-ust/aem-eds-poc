@@ -33,7 +33,7 @@ export default function decorate(block) {
     // 🧩 Extract variants and buttons (multifield & buttons from author)
     const variantRows = [];
     const loanButton = loanButtonE1?.textContent?.trim();
-    const buyButton = buyButtonE1?.textContent?.trim() || "Check loan offers";
+    const buyButton = buyButtonE1?.textContent?.trim();
     
   
     rest.forEach((child) => {
