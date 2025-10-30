@@ -1,27 +1,58 @@
 export default function decorate(block) {
-    const [image, heading, ...rest] = block.children;
+    // Extract children (in order as defined in author)
+    const [
+      imageEl, 
+      headingEl, 
+      stateLabelEl, 
+      cityLabelEl, 
+      ...rest
+    ] = block.children;
   
     const container = document.createElement('div');
     container.classList.add('splendor-price-container');
   
-    // Image
+    // 🖼️ Image
     const imgWrapper = document.createElement('div');
     imgWrapper.classList.add('splendor-image');
-    if (image) imgWrapper.append(image);
+    if (imageEl) imgWrapper.append(imageEl);
   
-    // Content
+    // 📄 Content
     const content = document.createElement('div');
     content.classList.add('splendor-content');
   
+    // 🏷️ Heading
     const title = document.createElement('h2');
-    title.textContent = heading?.textContent?.trim() || 'SPLENDOR + PRICE';
+    title.textContent = headingEl?.textContent?.trim() || 'SPLENDOR + PRICE';
   
-    // Dropdowns
+    // 📍 State & City Labels
+    const stateLabel = stateLabelEl?.textContent?.trim() || 'State';
+    const cityLabel = cityLabelEl?.textContent?.trim() || 'City';
+  
+    // 🧩 Extract variants and buttons (multifield & buttons from author)
+    const variantRows = [];
+    let loanBtnText = 'CHECK LOAN OFFERS';
+    let buyBtnText = 'BUY NOW';
+  
+    rest.forEach((child) => {
+      const text = child.textContent.trim();
+  
+      if (text.toUpperCase().includes('LOAN')) {
+        loanBtnText = text;
+      } else if (text.toUpperCase().includes('BUY')) {
+        buyBtnText = text;
+      } else if (text.includes('₹')) {
+        // variant and price rows
+        const [variantName, price] = text.split('₹').map((t) => t.trim());
+        variantRows.push({ variantName, price: `₹ ${price}` });
+      }
+    });
+  
+    // 📋 Filters Section
     const filters = document.createElement('div');
     filters.classList.add('splendor-filters');
     filters.innerHTML = `
       <div class="dropdown">
-        <label>State</label>
+        <label>${stateLabel}</label>
         <select>
           <option>DELHI</option>
           <option>MUMBAI</option>
@@ -29,7 +60,7 @@ export default function decorate(block) {
         </select>
       </div>
       <div class="dropdown">
-        <label>City</label>
+        <label>${cityLabel}</label>
         <select>
           <option>DELHI</option>
           <option>MUMBAI</option>
@@ -38,9 +69,16 @@ export default function decorate(block) {
       </div>
     `;
   
-    // Variant Table
+    // 📊 Table Section
     const table = document.createElement('table');
     table.classList.add('splendor-table');
+    const tbody = variantRows
+      .map(
+        (row) =>
+          `<tr><td>${row.variantName}</td><td>${row.price}</td></tr>`
+      )
+      .join('');
+  
     table.innerHTML = `
       <thead>
         <tr>
@@ -48,22 +86,18 @@ export default function decorate(block) {
           <th>Ex-Showroom Price</th>
         </tr>
       </thead>
-      <tbody>
-        <tr><td>SPLENDOR+ DRUM BRAKE OBD2B</td><td>₹ 73,902</td></tr>
-        <tr><td>SPLENDOR+ I3S OBD2B</td><td>₹ 75,055</td></tr>
-        <tr><td>SPLENDOR+ SPECIAL EDITIONS OBD2B</td><td>₹ 75,055</td></tr>
-        <tr><td>125 MILLION EDITION</td><td>₹ 76,437</td></tr>
-      </tbody>
+      <tbody>${tbody}</tbody>
     `;
   
-    // Buttons
+    // 🔘 Buttons Section
     const btns = document.createElement('div');
     btns.classList.add('splendor-buttons');
     btns.innerHTML = `
-      <button class="loan-btn">CHECK LOAN OFFERS</button>
-      <button class="buy-btn">BUY NOW</button>
+      <button class="loan-btn">${loanBtnText}</button>
+      <button class="buy-btn">${buyBtnText}</button>
     `;
   
+    // 🧱 Combine All
     content.append(title, filters, table, btns);
     container.append(imgWrapper, content);
     block.replaceChildren(container);
