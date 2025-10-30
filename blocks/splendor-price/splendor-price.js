@@ -30,8 +30,8 @@ export default function decorate(block) {
   
     // 🧩 Extract variants and buttons (multifield & buttons from author)
     const variantRows = [];
-    let loanBtnText = 'CHECK LOAN OFFERS';
-    let buyBtnText = 'BUY NOW';
+    // let loanBtnText = 'CHECK LOAN OFFERS';
+    // let buyBtnText = 'BUY NOW';
   
     rest.forEach((child) => {
       const text = child.textContent.trim();
@@ -47,7 +47,7 @@ export default function decorate(block) {
       }
     });
   
-    // 📋 Filters Section
+   
     const filters = document.createElement('div');
     filters.classList.add('splendor-filters');
     filters.innerHTML = `

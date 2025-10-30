@@ -268,6 +268,8 @@
             "component": "multifield",
             "name": "variants",
             "label": "Variants and Prices",
+            "minItems": 1,
+            "maxItems": 10,
             "fields": [
               {
                 "component": "text",
@@ -295,6 +297,8 @@
           }
         ]
       }
+      
+      
       
   
   
