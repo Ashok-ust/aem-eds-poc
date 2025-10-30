@@ -237,7 +237,65 @@
             "valueType": "string"
           }
         ]
+      },
+      {
+        "id": "splendor-price",
+        "fields": [
+          {
+            "component": "reference",
+            "name": "bikeImage",
+            "label": "Bike Image"
+          },
+          {
+            "component": "text",
+            "name": "heading",
+            "label": "Heading",
+            "default": "SPLENDOR + PRICE"
+          },
+          {
+            "component": "text",
+            "name": "stateLabel",
+            "label": "State Label",
+            "default": "State"
+          },
+          {
+            "component": "text",
+            "name": "cityLabel",
+            "label": "City Label",
+            "default": "City"
+          },
+          {
+            "component": "multifield",
+            "name": "variants",
+            "label": "Variants and Prices",
+            "fields": [
+              {
+                "component": "text",
+                "name": "variantName",
+                "label": "Variant Name"
+              },
+              {
+                "component": "text",
+                "name": "price",
+                "label": "Ex-Showroom Price"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "loanButton",
+            "label": "Loan Button Text",
+            "default": "CHECK LOAN OFFERS"
+          },
+          {
+            "component": "text",
+            "name": "buyButton",
+            "label": "Buy Button Text",
+            "default": "BUY NOW"
+          }
+        ]
       }
+      
   
   
   
