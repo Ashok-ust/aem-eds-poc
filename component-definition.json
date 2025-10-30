@@ -170,11 +170,11 @@
                   "cards": [
                     {
                       "title": "Card 1 Title",
-                      "description": "<p>This is card 1 description.</p>"
+                      "description": "<p>This is the first card’s description.</p>"
                     },
                     {
                       "title": "Card 2 Title",
-                      "description": "<p>This is card 2 description.</p>"
+                      "description": "<p>This is the second card’s description.</p>"
                     }
                   ]
                 }
@@ -182,6 +182,7 @@
             }
           }
         }
+        
         
         
       ]

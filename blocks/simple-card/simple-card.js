@@ -1,5 +1,7 @@
-export default function decorate(block) {
+
+  export default function decorate(block) {
     const cards = [...block.children];
+  
     const wrapper = document.createElement('div');
     wrapper.classList.add('simple-card-wrapper');
   
@@ -22,4 +24,4 @@ export default function decorate(block) {
     block.textContent = '';
     block.append(wrapper);
   }
-  
+    
