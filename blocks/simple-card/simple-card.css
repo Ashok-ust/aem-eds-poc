@@ -3,7 +3,9 @@
     flex-wrap: wrap;
     gap: 20px;
   }
-  
+  .simple-card-container{
+    display: flex;
+  }
   .card-item {
     background: #fff;
     border: 1px solid #e0e0e0;
