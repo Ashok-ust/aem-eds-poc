@@ -264,13 +264,7 @@
             "label": "City Label",
             "default": "City"
           },
-          {
-            "component": "multifield",
-            "name": "variants",
-            "label": "Variants and Prices",
-            "minItems": 1,
-            "maxItems": 10,
-            "fields": [
+          
               {
                 "component": "text",
                 "name": "variantName",
@@ -280,9 +274,8 @@
                 "component": "text",
                 "name": "price",
                 "label": "Ex-Showroom Price"
-              }
-            ]
-          },
+              },
+          
           {
             "component": "text",
             "name": "loanButton",
