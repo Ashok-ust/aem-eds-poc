@@ -1,13 +1,25 @@
 export default function decorate(block) {
-    const [titleEl, descEl] = block.children;
+    const cards = [...block.children];
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('simple-card-wrapper');
   
-    const title = document.createElement('h3');
-    title.textContent = titleEl?.textContent?.trim() || '';
+    cards.forEach((card) => {
+      const [titleEl, descEl] = card.children;
   
-    const description = document.createElement('p');
-    description.innerHTML = descEl?.innerHTML || '';
+      const cardDiv = document.createElement('div');
+      cardDiv.classList.add('card-item');
+  
+      const title = document.createElement('h3');
+      title.textContent = titleEl?.textContent?.trim() || '';
+  
+      const desc = document.createElement('p');
+      desc.innerHTML = descEl?.innerHTML || '';
+  
+      cardDiv.append(title, desc);
+      wrapper.append(cardDiv);
+    });
   
     block.textContent = '';
-    block.append(title, description);
+    block.append(wrapper);
   }
   

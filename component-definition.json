@@ -167,13 +167,22 @@
                 "template": {
                   "name": "Simple Card",
                   "model": "simple-card",
-                  "title": "Sample Card Title",
-                  "description": "<p>This is a sample description.</p>"
+                  "cards": [
+                    {
+                      "title": "Card 1 Title",
+                      "description": "<p>This is card 1 description.</p>"
+                    },
+                    {
+                      "title": "Card 2 Title",
+                      "description": "<p>This is card 2 description.</p>"
+                    }
+                  ]
                 }
               }
             }
           }
         }
+        
         
       ]
     }
