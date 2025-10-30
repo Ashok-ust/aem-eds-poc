@@ -215,14 +215,15 @@
       }
     ]
   },
-  {
-    "id": "simple-card",
-    "fields": [
       {
-        "component": "multifield",
-        "name": "cards",
-        "label": "Cards",
+        "id": "simple-card",
         "fields": [
+          {
+            "component": "reference",
+            "name": "image",
+            "label": "Card Image",
+            "valueType": "string"
+          },
           {
             "component": "text",
             "name": "title",
@@ -237,8 +238,7 @@
           }
         ]
       }
-    ]
-  }
+  
   
   
 ]
