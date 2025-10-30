@@ -1,142 +1,32 @@
- /* --- Wrapper --- */
-.simple-card-carousel {
-    position: relative;
-    width: 100%;
-    height: 650px;
-    overflow: hidden;
-    margin: 40px auto;
-    max-width: 1100px;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    padding: 30px 10px;
-  }
-  
-  /* --- Track --- */
-  .simple-card-carousel__track {
+.simple-card-wrapper {
     display: flex;
-    transition: transform 0.6s ease;
-    will-change: transform;
+    flex-wrap: wrap;
     gap: 20px;
-    padding: 10px;
   }
   
-  /* --- Individual Card (Slide) --- */
-  .simple-card-slide {
-    flex: 0 0 33.333%; /* 3 cards visible */
-    box-sizing: border-box;
-    text-align: center;
-    background: #fafafa;
+  .card-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
     border-radius: 12px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  }
-  
-  .simple-card-slide:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    border-color: #ccc;
-  }
-  
-  /* --- Image --- */
-  .simple-card-slide picture img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    transition: transform 0.3s ease;
-  }
-  
-  .simple-card-slide picture img:hover {
-    transform: scale(1.05);
-  }
-  
-  /* --- Title --- */
-  .simple-card-slide h3 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #111;
-    margin: unset;
-    line-height: 1.4;
-    text-align: start;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    width: 300px;
     padding: 16px;
+    text-align: center;
   }
   
-  /* --- Description --- */
-  .simple-card-slide p {
-    padding: 8px;
-    text-align: start;
+  .card-item__image {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .card-item__title {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  
+  .card-item__description {
     color: #555;
     font-size: 0.95rem;
-    line-height: 1.5;
-    max-width: 95%;
-    margin: unset;
-  }
-  
-  /* --- Carousel Buttons --- */
-  .carousel-btn {
-    position: absolute;
-    top: 90%; /* stays near bottom */
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    border: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-    padding: 10px 16px;
-    border-radius: 8px; /* square corners instead of circle */
-    transition: background 0.3s ease, transform 0.3s ease;
-    z-index: 10;
-    width: 48px;
-    height: 48px; /* make it perfectly square */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .carousel-btn:hover {
-    background: rgba(0, 0, 0, 0.85);
-    transform: translateY(-50%) scale(1.1);
-  }
-  
-  /* --- Bottom Center Alignment --- */
-  .carousel-btn.prev {
-    left: 46%;
-  }
-  
-  .carousel-btn.next {
-    right: 46%;
-  }
-  
-  /* --- Responsive Fix --- */
-  @media (max-width: 768px) {
-    .carousel-btn.prev {
-      left: 43%;
-    }
-  
-    .carousel-btn.next {
-      right: 43%;
-    }
-  
-    .carousel-btn {
-      width: 40px;
-      height: 40px;
-      font-size: 1.5rem;
-    }
-  }
-  
-  
-  /* --- Responsive --- */
-  @media (max-width: 1024px) {
-    .simple-card-slide {
-      flex: 0 0 50%; /* 2 per row on tablet */
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .simple-card-slide {
-      flex: 0 0 100%; /* 1 per row on mobile */
-    }
   }
   
