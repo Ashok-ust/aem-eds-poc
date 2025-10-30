@@ -32,8 +32,8 @@ export default function decorate(block) {
   
     // 🧩 Extract variants and buttons (multifield & buttons from author)
     const variantRows = [];
-    const loanBtnText = loanBtnEl?.textContent?.trim() || 'CHECK LOAN OFFERS';
-  const buyBtnText = buyBtnEl?.textContent?.trim() || 'BUY NOW';
+    const loanBtnText = loanBtnEl?.textContent?.trim();
+  const buyBtnText = buyBtnEl?.textContent?.trim();
     
   
     rest.forEach((child) => {
