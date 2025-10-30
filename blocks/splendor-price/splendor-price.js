@@ -6,7 +6,7 @@ export default function decorate(block) {
       stateLabelEl, 
       cityLabelEl,
       loanButtonE1,
-    buyBtnEl, 
+      buyButtonE1, 
       ...rest
     ] = block.children;
   
@@ -33,7 +33,7 @@ export default function decorate(block) {
     // 🧩 Extract variants and buttons (multifield & buttons from author)
     const variantRows = [];
     const loanButton = loanButtonE1?.textContent?.trim();
-  const buyBtnText = buyBtnEl?.textContent?.trim();
+  const buyButton = buyButtonE1?.textContent?.trim();
     
   
     rest.forEach((child) => {
@@ -42,7 +42,7 @@ export default function decorate(block) {
       if (text.toUpperCase().includes('LOAN')) {
         loanButton = text;
       } else if (text.toUpperCase().includes('BUY')) {
-        buyBtnText = text;
+        buyButton = text;
       } else if (text.includes('₹')) {
         // variant and price rows
         const [variantName, price] = text.split('₹').map((t) => t.trim());
@@ -97,7 +97,7 @@ export default function decorate(block) {
     btns.classList.add('splendor-buttons');
     btns.innerHTML = `
       <button class="loan-btn">${loanButton}</button>
-      <button class="buy-btn">${buyBtnText}</button>
+      <button class="buy-btn">${buyButton}</button>
     `;
   
     // 🧱 Combine All
