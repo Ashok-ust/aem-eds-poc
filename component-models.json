@@ -214,5 +214,23 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "simple-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Card Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "label": "Card Description",
+        "valueType": "string"
+      }
+    ]
   }
+  
 ]
