@@ -1,42 +1,30 @@
-// export default function decorate(block) {
-//     const cards = [...block.children];
+export default function decorate(block) {
+    const [imageWrapper, titleWrapper, descWrapper] = block.children;
   
-//     // Parent wrapper for all cards
-//     const wrapper = document.createElement('div');
-//     wrapper.classList.add('simple-card-wrapper');
+    // Create parent container
+    const card = document.createElement('div');
+    card.classList.add('simple-card');
   
-//     cards.forEach((card) => {
-//       const [imageEl, titleEl, descEl] = card.children;
+    // Create image element
+    const img = document.createElement('img');
+    img.src = imageWrapper?.textContent?.trim() || '';
+    img.alt = titleWrapper?.textContent?.trim() || '';
+    img.classList.add('simple-card__image');
   
-//       // Create parent card container
-//       const cardDiv = document.createElement('div');
-//       cardDiv.classList.add('card-item');
+    // Create title
+    const title = document.createElement('h3');
+    title.textContent = titleWrapper?.textContent?.trim() || '';
+    title.classList.add('simple-card__title');
   
-//       // Image
-//       const img = document.createElement('img');
-//       img.src = imageEl?.textContent?.trim() || '';
-//       img.alt = titleEl?.textContent?.trim() || '';
-//       img.classList.add('card-item__image');
+    // Create description
+    const desc = document.createElement('p');
+    desc.innerHTML = descWrapper?.innerHTML?.trim() || '';
+    desc.classList.add('simple-card__description');
   
-//       // Title
-//       const title = document.createElement('h3');
-//       title.textContent = titleEl?.textContent?.trim() || '';
-//       title.classList.add('card-item__title');
+    // Append all elements to parent
+    card.append(img, title, desc);
   
-//       // Description
-//       const desc = document.createElement('p');
-//       desc.innerHTML = descEl?.innerHTML?.trim() || '';
-//       desc.classList.add('card-item__description');
-  
-//       // Append elements to card
-//       cardDiv.append(img, title, desc);
-  
-//       // Add to wrapper
-//       wrapper.append(cardDiv);
-//     });
-  
-//     // Replace block content
-//     block.textContent = '';
-//     block.append(wrapper);
-//   }
+    // Replace the block content
+    block.replaceChildren(card);
+  }
   
