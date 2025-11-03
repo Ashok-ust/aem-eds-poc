@@ -1,10 +1,10 @@
 export default function decorate(block) {
     if (!block) return;
   
-    // Extract authored wrappers (usually divs)
+    // Extract authored wrappers (usually <div> for each element)
     const [flagWrapper, titleWrapper, closeWrapper] = block.children;
   
-    // Get authored values safely (handles nested tags)
+    // Get authored values safely (works even if nested)
     const popupTitle =
       titleWrapper?.querySelector('h3, p, span')?.textContent?.trim() ||
       titleWrapper?.textContent?.trim() ||
@@ -16,19 +16,27 @@ export default function decorate(block) {
     const closeIcon =
       closeWrapper?.querySelector('img')?.src || '';
   
-    // Clear authored content
+    // Clear authored HTML
     block.innerHTML = '';
   
-    // --- Button to open popup ---
+    // --- Create container ---
+    const container = document.createElement('div');
+    container.classList.add('select-country-container');
+    block.appendChild(container);
+  
+    // --- Create open button (flag image) ---
     const openBtn = document.createElement('button');
     openBtn.className = 'sc-open-btn';
     openBtn.type = 'button';
     if (flagImage) {
       openBtn.innerHTML = `<img src="${flagImage}" alt="Country flag" />`;
+    } else {
+      openBtn.textContent = 'Select Country';
     }
-    block.appendChild(openBtn);
   
-    // --- Popup structure ---
+    container.appendChild(openBtn);
+  
+    // --- Create popup structure ---
     const popup = document.createElement('div');
     popup.className = 'sc-popup sc-hidden';
     popup.innerHTML = `
@@ -45,13 +53,14 @@ export default function decorate(block) {
         </div>
       </div>
     `;
-    block.appendChild(popup);
+    container.appendChild(popup);
   
+    // --- Get popup elements ---
     const listEl = popup.querySelector('.sc-list');
     const backdrop = popup.querySelector('[data-sc-role="backdrop"]');
     const closeBtn = popup.querySelector('.sc-close');
   
-    // Dummy JSON data (for now)
+    // --- Dummy JSON data (replace with AEM multifield later) ---
     const countries = [
       { name: 'India', icon: '/content/dam/hero-aem-website/brand/design/flags/india.png', path: 'https://www.heromotocorp.com/en-in/' },
       { name: 'Bangladesh', icon: '/content/dam/hero-aem-website/brand/design/flags/bangladesh.png', path: 'https://www.heromotocorp.com/en-bd/' },
@@ -60,7 +69,7 @@ export default function decorate(block) {
       { name: 'Mexico', icon: '/content/dam/hero-aem-website/brand/design/flags/mexico.png', path: 'https://www.heromotocorp.com/en-mx/' },
     ];
   
-    // Render countries
+    // --- Render Country Flags ---
     countries.forEach((country) => {
       const item = document.createElement('button');
       item.type = 'button';
@@ -75,15 +84,17 @@ export default function decorate(block) {
       listEl.appendChild(item);
     });
   
-    // --- Popup open/close logic ---
+    // --- Popup handlers ---
     const openPopup = () => {
       popup.classList.remove('sc-hidden');
       document.addEventListener('keydown', onKeyDown);
     };
+  
     const closePopup = () => {
       popup.classList.add('sc-hidden');
       document.removeEventListener('keydown', onKeyDown);
     };
+  
     const onKeyDown = (e) => {
       if (e.key === 'Escape') closePopup();
     };
