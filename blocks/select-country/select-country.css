@@ -1,53 +1,60 @@
-.country-modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+
+.country-modal-container {
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 960px;
+    margin: 2rem auto;
+    text-align: center;
   }
   
-  .modal-content {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 800px;
-    text-align: center;
+  .country-modal-heading {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #111;
   }
   
   .country-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 16px;
-    margin-top: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    justify-items: center;
   }
   
-  .country-item {
-    background: #f6f6f6;
-    border-radius: 8px;
-    padding: 12px;
+  .country-card {
+    background: #f9f9f9;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    padding: 0.8rem;
+    width: 100%;
+    max-width: 150px;
     text-align: center;
-    transition: transform 0.2s ease;
   }
   
-  .country-item:hover {
-    transform: scale(1.05);
+  .country-card:hover {
+    background: #eef3ff;
+    transform: translateY(-3px);
   }
   
-  .country-item img {
-    width: 32px;
-    height: 20px;
-    margin-bottom: 8px;
+  .country-card img {
+    width: 50px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
   }
   
-  .close-btn {
-    margin-top: 20px;
-    background: transparent;
-    border: none;
-    font-size: 28px;
-    cursor: pointer;
+  .country-card p {
+    font-size: 0.9rem;
+    font-weight: 500;
     color: #333;
   }
-
+  
+  .error {
+    color: red;
+    text-align: center;
+    font-weight: 600;
+  }
+  
