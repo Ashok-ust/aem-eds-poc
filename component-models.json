@@ -290,85 +290,100 @@
         ]
       },
       
-      {
-        "id": "select-country",
-        "fields": [
-            {
+        
+          {
+            "id": "select-country",
+            "fields": [
+              {
                 "component": "text",
                 "valueType": "string",
-                "name": "subheader_title",
-                "label": "Subheader Title",
+                "name": "title",
+                "label": "Popup Title",
                 "value": ""
-            },
-            {
+              },
+              {
                 "component": "text",
                 "valueType": "string",
-                "name": "subheader_subtitle",
-                "label": "Subheader Subtitle",
+                "name": "description",
+                "label": "Popup Description",
                 "value": ""
-            }
-        ]
-    },
-    {
-        "id": "subheader-option",
-        "fields": [
-            {
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "closeButtonText",
+                "label": "Close Button Text",
+                "value": "Close"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaButtonText",
+                "label": "CTA Button Text",
+                "value": "Visit Website"
+              }
+            ]
+          },
+          {
+            "id": "select-country-option",
+            "fields": [
+              {
                 "component": "reference",
                 "valueType": "string",
-                "name": "option_icon",
-                "label": "Option Icon",
+                "name": "countryicon",
+                "label": "Country Icon",
                 "multi": false
-            },
-            {
+              },
+              {
                 "component": "text",
                 "valueType": "string",
-                "name": "option_name",
-                "label": "Option Name",
+                "name": "countryname",
+                "label": "Country Name",
                 "value": ""
-            },
-            {
+              },
+              {
                 "component": "text",
                 "valueType": "string",
-                "name": "option_id",
-                "label": "Option ID",
+                "name": "countrypagepath",
+                "label": "Country Page Path",
                 "value": ""
-            },
-            {
+              },
+              {
                 "component": "text",
                 "valueType": "string",
-                "name": "option_cta",
-                "label": "Option CTA Link",
+                "name": "countryid",
+                "label": "Country ID",
                 "value": ""
-            }
-        ]
-    },
-    {
-        "id": "subheader-button",
-        "fields": [
-            {
+              }
+            ]
+          },
+          {
+            "id": "select-country-button",
+            "fields": [
+              {
                 "component": "text",
                 "valueType": "string",
                 "name": "button_name",
                 "label": "Button Name",
                 "value": ""
-            },
-            {
+              },
+              {
                 "component": "text",
                 "valueType": "string",
                 "name": "button_cta",
                 "label": "Button CTA Link",
                 "value": ""
-            },
-            {
+              },
+              {
                 "component": "text",
                 "valueType": "string",
                 "name": "button_id",
                 "label": "Button ID",
                 "value": ""
-            }
-          ]
-        }
-      
+              }
+            ]
+          }
+        
         
       
       
