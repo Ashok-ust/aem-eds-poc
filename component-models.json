@@ -301,11 +301,10 @@
             "value": "Select Your Country"
           },
           {
-            "component": "image",
-            "valueType": "string",
-            "name": "image_label",
+            "component": "reference",
+            "name": "image",
             "label": "Button Image",
-            "value": "/content/dam/hero-aem-website/brand/design/flags/india.png"
+            "valueType": "string"
           }
         ]
       }
