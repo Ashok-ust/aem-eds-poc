@@ -1,105 +1,114 @@
 export default function decorate(block) {
-    // --- Extract authored elements from AEM ---
-    const [flagImageEl, popupTitleEl, closeIconEl] = block.children;
+    // Extract children (in order as defined in author)
+    const [
+      imageEl, 
+      headingEl, 
+      stateLabelEl, 
+      cityLabelEl,
+      variantNameE1,
+      priceE1,
+      buyButtonE1, 
+      loanButtonE1,
+      ...rest
+    ] = block.children;
   
-    // --- Create outer container ---
     const container = document.createElement('div');
-    container.classList.add('select-country-container');
+    container.classList.add('splendor-price-container');
   
-    // --- Button: Trigger Image (flag) ---
-    const triggerWrapper = document.createElement('div');
-    triggerWrapper.classList.add('sc-trigger-wrapper');
+    // 🖼️ Image
+    const imgWrapper = document.createElement('div');
+    imgWrapper.classList.add('splendor-image');
+    if (imageEl) imgWrapper.append(imageEl);
   
-    if (flagImageEl) {
-      // if image element exists in authored content
-      triggerWrapper.append(flagImageEl);
-    }
+    // 📄 Content
+    const content = document.createElement('div');
+    content.classList.add('splendor-content');
   
-    // --- Popup Wrapper ---
-    const popup = document.createElement('div');
-    popup.classList.add('sc-popup', 'sc-hidden');
+    // 🏷️ Heading
+    const title = document.createElement('h2');
+    title.textContent = headingEl?.textContent?.trim() || 'SPLENDOR + PRICE';
   
-    // --- Popup Head ---
-    const popupHead = document.createElement('div');
-    popupHead.classList.add('sc-panel-head');
+    // 📍 State & City Labels
+    const stateLabel = stateLabelEl?.textContent?.trim() || 'State';
+    const cityLabel = cityLabelEl?.textContent?.trim() || 'City';
   
-    // Title (only if authored)
-    const popupTitle = document.createElement('h3');
-    popupTitle.className = 'sc-title';
-    popupTitle.textContent =
-      popupTitleEl?.textContent?.trim() || 'Select Your Country';
+    // 🧩 Extract variants and buttons (multifield & buttons from author)
+    const variantRows = [];
+    const loanButton = loanButtonE1?.textContent?.trim();
+    const buyButton = buyButtonE1?.textContent?.trim() || "BUY NOW";
+    
   
-    popupHead.append(popupTitle);
+    rest.forEach((child) => {
+      const text = child.textContent.trim();
   
-    // Close icon (only if authored)
-    if (closeIconEl) {
-      const closeImg = closeIconEl.querySelector('img');
-      if (closeImg) {
-        const closeIcon = document.createElement('img');
-        closeIcon.className = 'sc-close';
-        closeIcon.src = closeImg.src;
-        closeIcon.alt = 'Close';
-        popupHead.append(closeIcon);
+    if (text.includes('₹')) {
+        // variant and price rows
+        const [variantName, price] = text.split('₹').map((t) => t.trim());
+        variantRows.push({ variantName, price: `₹ ${price}` });
       }
-    }
-  
-    // --- Popup Body ---
-    const popupBody = document.createElement('div');
-    popupBody.classList.add('sc-panel-body');
-  
-    const listContainer = document.createElement('div');
-    listContainer.classList.add('sc-list');
-    popupBody.append(listContainer);
-  
-    // --- Assemble Popup ---
-    popup.append(popupHead, popupBody);
-  
-    // --- Dummy JSON for Country Data ---
-    const countries = [
-      { name: 'India', flag: '/images/india-flag.png', url: '/in' },
-      { name: 'USA', flag: '/images/usa-flag.png', url: '/us' },
-      { name: 'UK', flag: '/images/uk-flag.png', url: '/uk' },
-      { name: 'Germany', flag: '/images/germany-flag.png', url: '/de' },
-      { name: 'France', flag: '/images/france-flag.png', url: '/fr' },
-      { name: 'Japan', flag: '/images/japan-flag.png', url: '/jp' },
-      { name: 'Australia', flag: '/images/australia-flag.png', url: '/au' },
-      { name: 'Brazil', flag: '/images/brazil-flag.png', url: '/br' },
-      { name: 'Canada', flag: '/images/canada-flag.png', url: '/ca' },
-      { name: 'Italy', flag: '/images/italy-flag.png', url: '/it' },
-    ];
-  
-    // --- Render countries ---
-    countries.forEach((country) => {
-      const item = document.createElement('button');
-      item.type = 'button';
-      item.className = 'sc-item';
-      item.innerHTML = `
-        <img src="${country.flag}" alt="${country.name} flag" />
-        <span>${country.name}</span>
-      `;
-      item.addEventListener('click', () => {
-        window.location.href = country.url;
-      });
-      listContainer.append(item);
     });
   
-    // --- Append everything to container ---
-    container.append(triggerWrapper, popup);
-    block.innerHTML = ''; // Clear original
-    block.append(container);
+   
+    const filters = document.createElement('div');
+    filters.classList.add('splendor-filters');
+    filters.innerHTML = `
+      <div class="dropdown">
+        <label>${stateLabel}</label>
+        <select>
+          <option>DELHI</option>
+          <option>MUMBAI</option>
+          <option>CHENNAI</option>
+        </select>
+      </div>
+      <div class="dropdown">
+        <label>${cityLabel}</label>
+        <select>
+          <option>DELHI</option>
+          <option>MUMBAI</option>
+          <option>CHENNAI</option>
+        </select>
+      </div>
+    `;
+
+    const variantName = variantNameE1?.textContent?.trim() || 'Splendor+ Drum Brake OBD2B';
+    const price = priceE1?.textContent?.trim() || '₹73,902';
+
+    // 📊 Table Section
+    const table = document.createElement('table');
+    table.classList.add('splendor-table');
+    const tbody = variantRows
+      .map(
+        (row) =>
+          `<tr><td>${row.variantName}</td><td>${row.price}</td></tr>`
+      )
+      .join('');
   
-    // --- Interactivity ---
-    const trigger = triggerWrapper.querySelector('img');
-    const closeBtn = popup.querySelector('.sc-close');
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th class="variant-header">${variantName}</th>
+          <th class="price">${price}</th>
+        </tr>
+      </thead>
+     <tbody>
+      <tr><td>SPLENDOR+ DRUM BRAKE OBD2B</td><td>₹ 73,902</td></tr>
+      <tr><td>SPLENDOR+ I3S OBD2B</td><td>₹ 75,055</td></tr>
+      <tr><td>SPLENDOR+ SPECIAL EDITIONS OBD2B</td><td>₹ 75,055</td></tr>
+      <tr><td>125 MILLION EDITION</td><td>₹ 76,437</td></tr>
+    </tbody>
+    `;
   
-    const openPopup = () => popup.classList.remove('sc-hidden');
-    const closePopup = () => popup.classList.add('sc-hidden');
+    // 🔘 Buttons Section
+    const btns = document.createElement('div');
+    btns.classList.add('splendor-buttons');
+    btns.innerHTML = `
+      <button class="loan-btn">${loanButton}</button>
+      <button class="buy-btn">${buyButton}</button>
+    `;
   
-    if (trigger) trigger.addEventListener('click', openPopup);
-    if (closeBtn) closeBtn.addEventListener('click', closePopup);
-  
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closePopup();
-    });
+    // 🧱 Combine All
+    content.append(title, filters, table, btns);
+    container.append(imgWrapper, content);
+    block.replaceChildren(container);
   }
   

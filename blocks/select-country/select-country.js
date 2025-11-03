@@ -1,86 +1,105 @@
 export default function decorate(block) {
-    if (!block) return;
-  
-    // Extract authored elements from AEM (in order)
+    // --- Extract authored elements from AEM ---
     const [flagImageEl, popupTitleEl, closeIconEl] = block.children;
   
-    // Get actual values from DOM (authored content)
-    const popupTitle = popupTitleEl?.textContent?.trim() || 'Select Your Country';
-    const flagImage = flagImageEl?.querySelector('img')?.src || '';
-    const closeIcon = closeIconEl?.querySelector('img')?.src || '';
+    // --- Create outer container ---
+    const container = document.createElement('div');
+    container.classList.add('select-country-container');
   
-    // Clear authored HTML before rendering
-    block.innerHTML = '';
+    // --- Button: Trigger Image (flag) ---
+    const triggerWrapper = document.createElement('div');
+    triggerWrapper.classList.add('sc-trigger-wrapper');
   
-    // --- India flag button (to open popup) ---
-    const openBtn = document.createElement('button');
-    openBtn.className = 'sc-open-btn';
-    openBtn.type = 'button';
-    openBtn.innerHTML = `<img src="${flagImage}" alt="Country flag" />`;
-    block.appendChild(openBtn);
+    if (flagImageEl) {
+      // if image element exists in authored content
+      triggerWrapper.append(flagImageEl);
+    }
   
-    // --- Popup container ---
+    // --- Popup Wrapper ---
     const popup = document.createElement('div');
-    popup.className = 'sc-popup sc-hidden';
-    popup.innerHTML = `
-      <div class="sc-backdrop" data-sc-role="backdrop"></div>
-      <div class="sc-panel" role="dialog" aria-modal="true" aria-label="${popupTitle}">
-        <div class="sc-panel-head">
-          <h3 class="sc-title">${popupTitle}</h3>
-          <button class="sc-close" aria-label="Close">
-            <img src="${closeIcon}" alt="Close" />
-          </button>
-        </div>
-        <div class="sc-panel-body">
-          <div class="sc-list" role="list"></div>
-        </div>
-      </div>
-    `;
-    block.appendChild(popup);
+    popup.classList.add('sc-popup', 'sc-hidden');
   
-    const listEl = popup.querySelector('.sc-list');
-    const backdrop = popup.querySelector('[data-sc-role="backdrop"]');
-    const closeBtn = popup.querySelector('.sc-close');
+    // --- Popup Head ---
+    const popupHead = document.createElement('div');
+    popupHead.classList.add('sc-panel-head');
   
-    // --- Country Data (can later come from AEM multifield JSON) ---
+    // Title (only if authored)
+    const popupTitle = document.createElement('h3');
+    popupTitle.className = 'sc-title';
+    popupTitle.textContent =
+      popupTitleEl?.textContent?.trim() || 'Select Your Country';
+  
+    popupHead.append(popupTitle);
+  
+    // Close icon (only if authored)
+    if (closeIconEl) {
+      const closeImg = closeIconEl.querySelector('img');
+      if (closeImg) {
+        const closeIcon = document.createElement('img');
+        closeIcon.className = 'sc-close';
+        closeIcon.src = closeImg.src;
+        closeIcon.alt = 'Close';
+        popupHead.append(closeIcon);
+      }
+    }
+  
+    // --- Popup Body ---
+    const popupBody = document.createElement('div');
+    popupBody.classList.add('sc-panel-body');
+  
+    const listContainer = document.createElement('div');
+    listContainer.classList.add('sc-list');
+    popupBody.append(listContainer);
+  
+    // --- Assemble Popup ---
+    popup.append(popupHead, popupBody);
+  
+    // --- Dummy JSON for Country Data ---
     const countries = [
-      { name: 'India', icon: '/content/dam/hero-aem-website/brand/design/flags/india.png', path: 'https://www.heromotocorp.com/en-in/' },
-      { name: 'Bangladesh', icon: '/content/dam/hero-aem-website/brand/design/flags/bangladesh.png', path: 'https://www.heromotocorp.com/en-bd/' },
-      { name: 'Nepal', icon: '/content/dam/hero-aem-website/brand/design/flags/nepal.jpg', path: 'https://www.heromotocorp.com/en-np/' },
-      { name: 'Sri Lanka', icon: '/content/dam/hero-aem-website/brand/design/flags/sri-lanka.jpg', path: 'https://www.heromotocorp.com/en-lk/' },
-      { name: 'Mexico', icon: '/content/dam/hero-aem-website/brand/design/flags/mexico.png', path: 'https://www.heromotocorp.com/en-mx/' },
+      { name: 'India', flag: '/images/india-flag.png', url: '/in' },
+      { name: 'USA', flag: '/images/usa-flag.png', url: '/us' },
+      { name: 'UK', flag: '/images/uk-flag.png', url: '/uk' },
+      { name: 'Germany', flag: '/images/germany-flag.png', url: '/de' },
+      { name: 'France', flag: '/images/france-flag.png', url: '/fr' },
+      { name: 'Japan', flag: '/images/japan-flag.png', url: '/jp' },
+      { name: 'Australia', flag: '/images/australia-flag.png', url: '/au' },
+      { name: 'Brazil', flag: '/images/brazil-flag.png', url: '/br' },
+      { name: 'Canada', flag: '/images/canada-flag.png', url: '/ca' },
+      { name: 'Italy', flag: '/images/italy-flag.png', url: '/it' },
     ];
   
-    // --- Render Country Flags ---
+    // --- Render countries ---
     countries.forEach((country) => {
       const item = document.createElement('button');
       item.type = 'button';
       item.className = 'sc-item';
       item.innerHTML = `
-        <img class="sc-flag" src="${country.icon}" alt="${country.name} flag"/>
-        <span class="sc-name">${country.name}</span>
+        <img src="${country.flag}" alt="${country.name} flag" />
+        <span>${country.name}</span>
       `;
       item.addEventListener('click', () => {
-        window.location.href = country.path;
+        window.location.href = country.url;
       });
-      listEl.appendChild(item);
+      listContainer.append(item);
     });
   
-    // --- Popup handlers ---
-    const openPopup = () => {
-      popup.classList.remove('sc-hidden');
-      document.addEventListener('keydown', onKeyDown);
-    };
-    const closePopup = () => {
-      popup.classList.add('sc-hidden');
-      document.removeEventListener('keydown', onKeyDown);
-    };
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') closePopup();
-    };
+    // --- Append everything to container ---
+    container.append(triggerWrapper, popup);
+    block.innerHTML = ''; // Clear original
+    block.append(container);
   
-    openBtn.addEventListener('click', openPopup);
-    closeBtn.addEventListener('click', closePopup);
-    backdrop.addEventListener('click', closePopup);
+    // --- Interactivity ---
+    const trigger = triggerWrapper.querySelector('img');
+    const closeBtn = popup.querySelector('.sc-close');
+  
+    const openPopup = () => popup.classList.remove('sc-hidden');
+    const closePopup = () => popup.classList.add('sc-hidden');
+  
+    if (trigger) trigger.addEventListener('click', openPopup);
+    if (closeBtn) closeBtn.addEventListener('click', closePopup);
+  
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePopup();
+    });
   }
   
