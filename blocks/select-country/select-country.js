@@ -1,63 +1,87 @@
 export default function decorate(block) {
-    // Read AEM data attributes (set dynamically by AEM)
-    const popupTitle = block.dataset.popupTitle || 'Select Your Country';
-    const buttonImage = block.dataset.imageLabel || '/content/dam/hero-aem-website/brand/design/flags/india.png';
-    const closeIcon = block.dataset.closeIcon || '/content/dam/hero-aem-website/brand/design/icons/close.png';
+    if (!block) return;
   
-    // Create India flag trigger button
-    const button = document.createElement('img');
-    button.src = buttonImage;
-    button.alt = 'Select Country';
-    button.className = 'select-country-btn';
+    // --- Fetch AEM model data (fallback to defaults) ---
+    const model = window.aemComponents?.['select-country'] || {};
+    const popupTitle = model.popup_title || 'Select Your Country';
+    const flagIcon = model.button_flag || '/content/dam/hero-aem-website/brand/design/flags/india.png';
+    const closeIcon = model.close_icon || '/content/dam/hero-aem-website/brand/design/icons/close.png';
   
-    // Create popup wrapper
+    // Clear block content
+    block.innerHTML = '';
+  
+    // --- Flag button (to open popup) ---
+    const openBtn = document.createElement('button');
+    openBtn.className = 'sc-open-btn';
+    openBtn.type = 'button';
+    openBtn.innerHTML = `<img src="${flagIcon}" alt="India flag" />`;
+    block.appendChild(openBtn);
+  
+    // --- Popup container ---
     const popup = document.createElement('div');
-    popup.className = 'select-country-popup hidden';
-  
-    // Popup header with dynamic title and close icon
-    const popupHeader = document.createElement('div');
-    popupHeader.className = 'popup-header';
-    popupHeader.innerHTML = `
-      <h2>${popupTitle}</h2>
-      <img src="${closeIcon}" alt="Close" class="close-popup-icon" />
+    popup.className = 'sc-popup sc-hidden';
+    popup.innerHTML = `
+      <div class="sc-backdrop" data-sc-role="backdrop"></div>
+      <div class="sc-panel" role="dialog" aria-modal="true" aria-label="${popupTitle}">
+        <div class="sc-panel-head">
+          <h3 class="sc-title">${popupTitle}</h3>
+          <button class="sc-close" aria-label="Close">
+            <img src="${closeIcon}" alt="Close" />
+          </button>
+        </div>
+        <div class="sc-panel-body">
+          <div class="sc-list" role="list"></div>
+        </div>
+      </div>
     `;
+    block.appendChild(popup);
   
-    // Country grid container
-    const countriesContainer = document.createElement('div');
-    countriesContainer.className = 'countries-grid';
+    const listEl = popup.querySelector('.sc-list');
+    const backdrop = popup.querySelector('[data-sc-role="backdrop"]');
+    const closeBtn = popup.querySelector('.sc-close');
   
-    // Hardcoded country data (AEM will provide later)
-    const countries = [
-      { name: 'Angola', icon: '/content/dam/hero-aem-website/brand/design/flags/angola.png', link: 'https://www.heromotocorp.com/en-ao/' },
-      { name: 'Argentina', icon: '/content/dam/hero-aem-website/brand/design/flags/argentina.jpg', link: 'https://heromotos.com.ar/' },
-      { name: 'Bangladesh', icon: '/content/dam/hero-aem-website/brand/design/flags/bangladesh.png', link: 'https://www.heromotocorp.com/en-bd/' },
-      { name: 'Bolivia', icon: '/content/dam/hero-aem-website/brand/design/flags/bolivia.jpg', link: 'https://heromotos.com.bo/' },
-      { name: 'Colombia', icon: '/content/dam/hero-aem-website/brand/design/flags/columbia.jpg', link: 'https://www.heromotos.com.co/' },
-      { name: 'Costa Rica', icon: '/content/dam/hero-aem-website/brand/design/flags/costa-rica.png', link: 'https://heromotos.cr/' },
-      { name: 'Dominican Republic', icon: '/content/dam/hero-aem-website/brand/design/flags/dominican-republic.jpg', link: 'https://heromotos.com.do/' },
-      { name: 'Ecuador', icon: '/content/dam/hero-aem-website/brand/design/flags/ecuador.png', link: 'https://heromotos.com.ec/' },
-      { name: 'Ethiopia', icon: '/content/dam/hero-aem-website/brand/design/flags/ethiopia.jpg', link: 'https://www.heromotocorp.com/en-et/' },
-      { name: 'Kenya', icon: '/content/dam/hero-aem-website/brand/design/flags/kenya.png', link: 'https://www.heromotocorp.com/en-ke/' },
-    ];
+    // --- Country Data (Hardcoded for now) ---
+    const countriesData = {
+      "item0": { "countrypagepath": "https://www.heromotocorp.com/en-ao/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/angola.png", "countryname": "Angola" },
+      "item1": { "countrypagepath": "https://heromotos.com.ar/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/argentina.jpg", "countryname": "Argentina" },
+      "item2": { "countrypagepath": "https://www.heromotocorp.com/en-bd/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/bangladesh.png", "countryname": "Bangladesh" },
+      "item3": { "countrypagepath": "https://heromotos.com.bo/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/bolivia.jpg", "countryname": "Bolivia" },
+      "item4": { "countrypagepath": "https://www.heromotos.com.co/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/columbia.jpg", "countryname": "Colombia" },
+      "item5": { "countrypagepath": "https://heromotos.cr/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/costa-rica.png", "countryname": "Costa Rica" }
+    };
   
-    // Build country list (5 per row handled by CSS grid)
-    countries.forEach(({ name, icon, link }) => {
-      const country = document.createElement('a');
-      country.href = link;
-      country.className = 'country-item';
-      country.innerHTML = `
-        <img src="${icon}" alt="${name}">
-        <p>${name}</p>
+    const countries = Object.values(countriesData);
+  
+    // --- Render countries ---
+    countries.forEach((c) => {
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'sc-item';
+      item.innerHTML = `
+        <img class="sc-flag" src="${c.countryicon}" alt="${c.countryname} flag"/>
+        <span class="sc-name">${c.countryname}</span>
       `;
-      countriesContainer.appendChild(country);
+      item.addEventListener('click', () => {
+        window.location.href = c.countrypagepath;
+      });
+      listEl.appendChild(item);
     });
   
-    // Append all parts
-    popup.append(popupHeader, countriesContainer);
-    block.append(button, popup);
+    // --- Popup handlers ---
+    const openPopup = () => {
+      popup.classList.remove('sc-hidden');
+      document.addEventListener('keydown', onKeyDown);
+    };
+    const closePopup = () => {
+      popup.classList.add('sc-hidden');
+      document.removeEventListener('keydown', onKeyDown);
+    };
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') closePopup();
+    };
   
-    // Event listeners
-    button.addEventListener('click', () => popup.classList.remove('hidden'));
-    popup.querySelector('.close-popup-icon').addEventListener('click', () => popup.classList.add('hidden'));
+    openBtn.addEventListener('click', openPopup);
+    closeBtn.addEventListener('click', closePopup);
+    backdrop.addEventListener('click', closePopup);
   }
   
