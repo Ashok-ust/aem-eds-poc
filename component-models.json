@@ -300,18 +300,18 @@
             "value": ""
           },
           {
-            "component": "image",
+            "component": "reference",
             "valueType": "string",
             "name": "image_label",
             "label": "Country Button Image",
-            "value": "/content/dam/hero-aem-website/brand/design/flags/india.png"
+            "value": ""
           },
           {
-            "component": "image",
+            "component": "reference",
             "valueType": "string",
             "name": "close_icon",
             "label": "Close Icon Image",
-            "value": "/content/dam/hero-aem-website/brand/design/icons/close.png"
+            "value": ""
           }
         ]
       }
