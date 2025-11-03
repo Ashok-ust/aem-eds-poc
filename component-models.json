@@ -289,38 +289,22 @@
           }
         ]
       },
-      
-        
           {
             "id": "select-country",
             "fields": [
               {
                 "component": "text",
                 "valueType": "string",
-                "name": "title",
+                "name": "popup_title",
                 "label": "Popup Title",
-                "value": ""
+                "value": "Select Your Country"
               },
               {
                 "component": "text",
                 "valueType": "string",
-                "name": "description",
-                "label": "Popup Description",
-                "value": ""
-              },
-              {
-                "component": "text",
-                "valueType": "string",
-                "name": "closeButtonText",
-                "label": "Close Button Text",
-                "value": "Close"
-              },
-              {
-                "component": "text",
-                "valueType": "string",
-                "name": "ctaButtonText",
-                "label": "CTA Button Text",
-                "value": "Visit Website"
+                "name": "button_label",
+                "label": "Button Label",
+                "value": "Select Country"
               }
             ]
           },
@@ -328,61 +312,29 @@
             "id": "select-country-option",
             "fields": [
               {
-                "component": "reference",
-                "valueType": "string",
-                "name": "countryicon",
-                "label": "Country Icon",
-                "multi": false
-              },
-              {
                 "component": "text",
                 "valueType": "string",
-                "name": "countryname",
+                "name": "country_name",
                 "label": "Country Name",
                 "value": ""
               },
               {
                 "component": "text",
                 "valueType": "string",
-                "name": "countrypagepath",
-                "label": "Country Page Path",
-                "value": ""
-              },
-              {
-                "component": "text",
-                "valueType": "string",
-                "name": "countryid",
+                "name": "country_id",
                 "label": "Country ID",
                 "value": ""
-              }
-            ]
-          },
-          {
-            "id": "select-country-button",
-            "fields": [
-              {
-                "component": "text",
-                "valueType": "string",
-                "name": "button_name",
-                "label": "Button Name",
-                "value": ""
               },
               {
                 "component": "text",
                 "valueType": "string",
-                "name": "button_cta",
-                "label": "Button CTA Link",
-                "value": ""
-              },
-              {
-                "component": "text",
-                "valueType": "string",
-                "name": "button_id",
-                "label": "Button ID",
+                "name": "country_flag",
+                "label": "Country Flag URL",
                 "value": ""
               }
             ]
           }
+      
         
         
       
