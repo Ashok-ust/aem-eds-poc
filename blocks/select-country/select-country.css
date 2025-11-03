@@ -1,107 +1,44 @@
-.sc-open-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
+.select-country-container {
+    position: relative;
   }
   
-  .sc-open-btn img {
-    width: 40px;
-    height: 30px;
-    border-radius: 4px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.3);
-  }
-  
-  /* Popup container */
-  .sc-popup {
+  .country-popup {
+    display: none;
     position: fixed;
-    inset: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 100;
+    max-width: 600px;
+  }
+  
+  .country-popup.active {
+    display: block;
+  }
+  
+  .country-item {
     display: flex;
     align-items: center;
-    justify-content: center;
-    z-index: 2000;
+    margin: 5px 0;
   }
   
-  .sc-hidden {
-    display: none !important;
+  .country-item img {
+    width: 30px;
+    margin-right: 10px;
   }
   
-  .sc-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-  }
-  
-  .sc-panel {
-    position: relative;
-    background: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    max-width: 700px;
-    width: 90%;
-    z-index: 2;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  }
-  
-  .sc-panel-head {
+  .popup-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
-  .sc-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 0;
-  }
-  
-  .sc-close {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    line-height: 1;
+  .popup-header .close-btn {
+    width: 20px;
     cursor: pointer;
-    color: #333;
-  }
-  
-  .sc-panel-body {
-    margin-top: 15px;
-  }
-  
-  .sc-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 15px;
-    justify-items: center;
-  }
-  
-  .sc-item {
-    display: flex;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 8px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  
-  .sc-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  
-  .sc-flag {
-    width: 50px;
-    height: 35px;
-    border-radius: 4px;
-    margin-bottom: 6px;
-  }
-  
-  .sc-name {
-    display: block;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #333;
   }
   

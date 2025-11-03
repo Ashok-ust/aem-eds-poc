@@ -293,28 +293,26 @@
         "id": "select-country",
         "fields": [
           {
+            "component": "reference",
+            "valueType": "string",
+            "name": "button_image",
+            "label": "Button Image (e.g. Globe or Flag Icon)"
+          },
+          {
             "component": "text",
             "valueType": "string",
             "name": "popup_title",
-            "label": "Popup Title",
-            "value": ""
-          },
-          {
-            "component": "reference",
-            "valueType": "string",
-            "name": "image_label",
-            "label": "Country Button Image",
-            "value": ""
+            "label": "Popup Title (e.g. Please Select Your Country)"
           },
           {
             "component": "reference",
             "valueType": "string",
             "name": "close_icon",
-            "label": "Close Icon Image",
-            "value": ""
+            "label": "Close Icon"
           }
         ]
       }
+      
       
       
       
