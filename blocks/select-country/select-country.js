@@ -1,20 +1,22 @@
 export default function decorate(block) {
     if (!block) return;
   
-    // --- Fetch AEM model data (fallback to defaults) ---
-    const model = window.aemComponents?.['select-country'] || {};
-    const popupTitle = model.popup_title || 'Select Your Country';
-    const flagIcon = model.button_flag || '';
-    const closeIcon = model.close_icon || '';
+    // Extract authored elements from AEM (in order)
+    const [flagImageEl, popupTitleEl, closeIconEl] = block.children;
   
-    // Clear block content
+    // Get actual values from DOM (authored content)
+    const popupTitle = popupTitleEl?.textContent?.trim() || 'Select Your Country';
+    const flagImage = flagImageEl?.querySelector('img')?.src || '';
+    const closeIcon = closeIconEl?.querySelector('img')?.src || '';
+  
+    // Clear authored HTML before rendering
     block.innerHTML = '';
   
-    // --- Flag button (to open popup) ---
+    // --- India flag button (to open popup) ---
     const openBtn = document.createElement('button');
     openBtn.className = 'sc-open-btn';
     openBtn.type = 'button';
-    openBtn.innerHTML = `<img src="${flagIcon}" alt="India flag" />`;
+    openBtn.innerHTML = `<img src="${flagImage}" alt="Country flag" />`;
     block.appendChild(openBtn);
   
     // --- Popup container ---
@@ -40,29 +42,26 @@ export default function decorate(block) {
     const backdrop = popup.querySelector('[data-sc-role="backdrop"]');
     const closeBtn = popup.querySelector('.sc-close');
   
-    // --- Country Data (Hardcoded for now) ---
-    const countriesData = {
-      "item0": { "countrypagepath": "https://www.heromotocorp.com/en-ao/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/angola.png", "countryname": "Angola" },
-      "item1": { "countrypagepath": "https://heromotos.com.ar/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/argentina.jpg", "countryname": "Argentina" },
-      "item2": { "countrypagepath": "https://www.heromotocorp.com/en-bd/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/bangladesh.png", "countryname": "Bangladesh" },
-      "item3": { "countrypagepath": "https://heromotos.com.bo/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/bolivia.jpg", "countryname": "Bolivia" },
-      "item4": { "countrypagepath": "https://www.heromotos.com.co/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/columbia.jpg", "countryname": "Colombia" },
-      "item5": { "countrypagepath": "https://heromotos.cr/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/costa-rica.png", "countryname": "Costa Rica" }
-    };
+    // --- Country Data (can later come from AEM multifield JSON) ---
+    const countries = [
+      { name: 'India', icon: '/content/dam/hero-aem-website/brand/design/flags/india.png', path: 'https://www.heromotocorp.com/en-in/' },
+      { name: 'Bangladesh', icon: '/content/dam/hero-aem-website/brand/design/flags/bangladesh.png', path: 'https://www.heromotocorp.com/en-bd/' },
+      { name: 'Nepal', icon: '/content/dam/hero-aem-website/brand/design/flags/nepal.jpg', path: 'https://www.heromotocorp.com/en-np/' },
+      { name: 'Sri Lanka', icon: '/content/dam/hero-aem-website/brand/design/flags/sri-lanka.jpg', path: 'https://www.heromotocorp.com/en-lk/' },
+      { name: 'Mexico', icon: '/content/dam/hero-aem-website/brand/design/flags/mexico.png', path: 'https://www.heromotocorp.com/en-mx/' },
+    ];
   
-    const countries = Object.values(countriesData);
-  
-    // --- Render countries ---
-    countries.forEach((c) => {
+    // --- Render Country Flags ---
+    countries.forEach((country) => {
       const item = document.createElement('button');
       item.type = 'button';
       item.className = 'sc-item';
       item.innerHTML = `
-        <img class="sc-flag" src="${c.countryicon}" alt="${c.countryname} flag"/>
-        <span class="sc-name">${c.countryname}</span>
+        <img class="sc-flag" src="${country.icon}" alt="${country.name} flag"/>
+        <span class="sc-name">${country.name}</span>
       `;
       item.addEventListener('click', () => {
-        window.location.href = c.countrypagepath;
+        window.location.href = country.path;
       });
       listEl.appendChild(item);
     });
