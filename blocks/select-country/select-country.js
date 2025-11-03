@@ -1,20 +1,17 @@
- // blocks/select-country/select-country.js
-// Simple Franklin-style decorator: export default function decorate(block)
-
 export default function decorate(block) {
     if (!block) return;
   
-    // Clear block content (Franklin passes the block root)
+    // Clear block content
     block.innerHTML = '';
   
-    // --- Button that opens popup ---
+    // --- India flag button (to open popup) ---
     const openBtn = document.createElement('button');
     openBtn.className = 'sc-open-btn';
     openBtn.type = 'button';
-    openBtn.textContent = 'Select Country';
+    openBtn.innerHTML = `<img src="/content/dam/hero-aem-website/brand/design/flags/india.png" alt="India flag" />`;
     block.appendChild(openBtn);
   
-    // --- Popup (kept inside the block) ---
+    // --- Popup container ---
     const popup = document.createElement('div');
     popup.className = 'sc-popup sc-hidden';
     popup.innerHTML = `
@@ -25,102 +22,87 @@ export default function decorate(block) {
           <button class="sc-close" aria-label="Close">&times;</button>
         </div>
         <div class="sc-panel-body">
-          <input class="sc-search" type="search" placeholder="Search country..." aria-label="Search country" />
           <div class="sc-list" role="list"></div>
-        </div>
-        <div class="sc-panel-foot">
-          <button class="sc-continue" type="button">Continue</button>
         </div>
       </div>
     `;
     block.appendChild(popup);
   
-    // --- Hardcoded country data (add more as needed) ---
-    const countries = [
-      { name: 'India', flag: 'https://flagcdn.com/w40/in.png', url: 'https://www.heromotocorp.com/en-in/' },
-      { name: 'Argentina', flag: 'https://flagcdn.com/w40/ar.png', url: 'https://heromotos.com.ar/' },
-      { name: 'Bangladesh', flag: 'https://flagcdn.com/w40/bd.png', url: 'https://www.heromotocorp.com/en-bd/' },
-      { name: 'South Africa', flag: 'https://flagcdn.com/w40/za.png', url: 'https://www.heromotocorp.com/en-za/' },
-      { name: 'Mexico', flag: 'https://flagcdn.com/w40/mx.png', url: 'https://heromotos.mx/' }
-    ];
-  
     const listEl = popup.querySelector('.sc-list');
-    const searchEl = popup.querySelector('.sc-search');
     const backdrop = popup.querySelector('[data-sc-role="backdrop"]');
     const closeBtn = popup.querySelector('.sc-close');
-    const continueBtn = popup.querySelector('.sc-continue');
   
-    // render list items
-    function renderList(items) {
-      listEl.innerHTML = '';
-      if (!items.length) {
-        const empty = document.createElement('div');
-        empty.className = 'sc-empty';
-        empty.textContent = 'No countries found';
-        listEl.appendChild(empty);
-        return;
-      }
-      items.forEach((c, idx) => {
-        const item = document.createElement('button');
-        item.type = 'button';
-        item.className = 'sc-item';
-        item.dataset.url = c.url || '#';
-        item.innerHTML = `<img class="sc-flag" src="${c.flag}" alt="${c.name} flag"/><span class="sc-name">${c.name}</span>`;
-        item.addEventListener('click', () => {
-          // mark selected
-          listEl.querySelectorAll('.sc-item').forEach(i => i.classList.remove('sc-selected'));
-          item.classList.add('sc-selected');
-        });
-        listEl.appendChild(item);
+    // --- Country Data (from JSON) ---
+    const countriesData = {
+      "item0": { "countrypagepath": "https://www.heromotocorp.com/en-ao/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/angola.png", "countryname": "Angola" },
+      "item1": { "countrypagepath": "https://heromotos.com.ar/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/argentina.jpg", "countryname": "Argentina" },
+      "item2": { "countrypagepath": "https://www.heromotocorp.com/en-bd/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/bangladesh.png", "countryname": "Bangladesh" },
+      "item3": { "countrypagepath": "https://heromotos.com.bo/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/bolivia.jpg", "countryname": "Bolivia" },
+      "item4": { "countrypagepath": "https://www.heromotos.com.co/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/columbia.jpg", "countryname": "Colombia" },
+      "item5": { "countrypagepath": "https://heromotos.cr/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/costa-rica.png", "countryname": "Costa Rica" },
+      "item6": { "countrypagepath": "https://heromotos.com.do/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/dominican-republic.jpg", "countryname": "Dominican Republic" },
+      "item7": { "countrypagepath": "https://www.heromotocorp.com/en-dc/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/democratic-republic-of-the-congo.jpg", "countryname": "DRC" },
+      "item8": { "countrypagepath": "https://heromotos.com.ec/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/ecuador.png", "countryname": "Ecuador" },
+      "item9": { "countrypagepath": "https://heromotos.com.sv/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/el-salvador.jpg", "countryname": "El Salvador" },
+      "item10": { "countrypagepath": "https://www.heromotocorp.com/en-et/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/ethiopia.jpg", "countryname": "Ethiopia" },
+      "item11": { "countrypagepath": "https://www.heromotocorp.com/en-gc/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/gcc.jpg", "countryname": "GCC" },
+      "item12": { "countrypagepath": "https://heromotos.com.gt/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/guatemala.jpg", "countryname": "Guatemala" },
+      "item13": { "countrypagepath": "https://www.heromotocorp.com/en-gn/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/guinea.jpg", "countryname": "Guinea" },
+      "item14": { "countrypagepath": "https://www.heromotocorp.com/en-gy/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/guyana.jpg", "countryname": "Guyana" },
+      "item15": { "countrypagepath": "https://heromotos.com.ht/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/haiti_flag.png", "countryname": "Haiti" },
+      "item16": { "countrypagepath": "https://heromotos.com.hn/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/honduras.jpg", "countryname": "Honduras" },
+      "item17": { "countrypagepath": "https://www.heromotocorp.com/en-ke/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/kenya.png", "countryname": "Kenya" },
+      "item18": { "countrypagepath": "https://www.heromotocorp.com/en-mg/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/madagascar.jpg", "countryname": "Madagascar" },
+      "item19": { "countrypagepath": "https://www.heromotos.mx/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/mexico.png", "countryname": "Mexico" },
+      "item20": { "countrypagepath": "https://www.heromotocorp.com/en-mm/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/myanmar.jpg", "countryname": "Myanmar" },
+      "item21": { "countrypagepath": "https://www.heromotocorp.com/en-np/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/nepal.jpg", "countryname": "Nepal" },
+      "item22": { "countrypagepath": "https://heromotos.com.ni/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/nicaragua.png", "countryname": "Nicaragua" },
+      "item23": { "countrypagepath": "https://www.heromotocorp.com/en-ng/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/nigeria.jpg", "countryname": "Nigeria" },
+      "item24": { "countrypagepath": "https://www.heromotocorp.com/en-pa/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/panama.jpg", "countryname": "Panama" },
+      "item25": { "countrypagepath": "https://heromotos.com.pe/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/peru.jpg", "countryname": "Peru" },
+      "item26": { "countrypagepath": "https://www.heromotocorp.com/en-ph/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/philippines.png", "countryname": "Philippines" },
+      "item27": { "countrypagepath": "https://www.heromotocorp.com/en-za/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/south-africa.jpg", "countryname": "South Africa" },
+      "item28": { "countrypagepath": "https://www.heromotocorp.com/en-lk/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/sri-lanka.jpg", "countryname": "Sri Lanka" },
+      "item29": { "countrypagepath": "https://www.heromotocorp.com/en-tz/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/tanzania.png", "countryname": "Tanzania" },
+      "item30": { "countrypagepath": "https://www.heromotocorp.com/en-tt/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/trinidad.jpg", "countryname": "Trinidad" },
+      "item31": { "countrypagepath": "https://www.heromotor.com.tr/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/turkey.jpg", "countryname": "Turkey" },
+      "item32": { "countrypagepath": "https://www.heromotocorp.com/en-ug/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/uganda.png", "countryname": "Uganda" },
+      "item33": { "countrypagepath": "https://www.heromotocorp.com/en-zm/", "countryicon": "/content/dam/hero-aem-website/brand/design/flags/zambia.png", "countryname": "Zambia" }
+    };
+  
+    // --- Convert to array ---
+    const countries = Object.values(countriesData);
+  
+    // --- Render ---
+    countries.forEach((c) => {
+      const item = document.createElement('button');
+      item.type = 'button';
+      item.className = 'sc-item';
+      item.innerHTML = `
+        <img class="sc-flag" src="${c.countryicon}" alt="${c.countryname} flag"/>
+        <span class="sc-name">${c.countryname}</span>
+      `;
+      item.addEventListener('click', () => {
+        window.location.href = c.countrypagepath;
       });
-    }
+      listEl.appendChild(item);
+    });
   
-    // initial render
-    renderList(countries);
-  
-    // open / close helpers
-    function openPopup() {
+    // --- Popup handlers ---
+    const openPopup = () => {
       popup.classList.remove('sc-hidden');
-      // focus search for accessibility
-      setTimeout(() => searchEl.focus(), 50);
       document.addEventListener('keydown', onKeyDown);
-    }
-    function closePopup() {
+    };
+    const closePopup = () => {
       popup.classList.add('sc-hidden');
       document.removeEventListener('keydown', onKeyDown);
-    }
-  
-    function onKeyDown(e) {
+    };
+    const onKeyDown = (e) => {
       if (e.key === 'Escape') closePopup();
-    }
+    };
   
-    // click handlers
     openBtn.addEventListener('click', openPopup);
     closeBtn.addEventListener('click', closePopup);
     backdrop.addEventListener('click', closePopup);
-  
-    continueBtn.addEventListener('click', () => {
-      const selected = listEl.querySelector('.sc-item.sc-selected');
-      if (!selected) {
-        // if none selected, choose first visible
-        const firstVisible = Array.from(listEl.children).find(ch => ch.offsetParent !== null && ch.classList.contains('sc-item'));
-        if (firstVisible) window.location.href = firstVisible.dataset.url;
-        else alert('Please select a country.');
-        return;
-      }
-      window.location.href = selected.dataset.url;
-    });
-  
-    // search filter
-    searchEl.addEventListener('input', (e) => {
-      const q = (e.target.value || '').trim().toLowerCase();
-      const filtered = countries.filter(c => c.name.toLowerCase().includes(q));
-      renderList(filtered);
-    });
-  
-    // ensure popup is removed on block unload (Framework may reuse) -- optional
-    if (typeof block.dataset !== 'undefined') {
-      // no-op but placeholder for lifecycle hooks if needed
-    }
   }
   
