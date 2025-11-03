@@ -1,0 +1,53 @@
+.country-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  .country-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+  }
+  
+  .country-item {
+    background: #f6f6f6;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    transition: transform 0.2s ease;
+  }
+  
+  .country-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .country-item img {
+    width: 32px;
+    height: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .close-btn {
+    margin-top: 20px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #333;
+  }
+

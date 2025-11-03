@@ -288,7 +288,86 @@
             "default": "BUY NOW"
           }
         ]
+      },
+      {
+        "id": "select-country",
+        "fields": [
+          {
+            "id": "popup-header",
+            "fields": [
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "title",
+                "label": "Popup Title",
+                "value": "Please Select Your Country"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "description",
+                "label": "Popup Description",
+                "value": "Choose your country from the list below to continue."
+              }
+            ]
+          },
+          {
+            "id": "popup-country-item",
+            "fields": [
+              {
+                "component": "reference",
+                "valueType": "string",
+                "name": "countryicon",
+                "label": "Country Flag Icon",
+                "multi": false
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "countryname",
+                "label": "Country Name",
+                "value": ""
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "countrypagepath",
+                "label": "Country Page URL",
+                "value": ""
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "countryid",
+                "label": "Country ID",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "id": "popup-button",
+            "fields": [
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "closeButtonText",
+                "label": "Close Button Text",
+                "value": "Close"
+              },
+              {
+                "component": "text",
+                "valueType": "string",
+                "name": "ctaButtonText",
+                "label": "CTA Button Text",
+                "value": "Visit Country Site"
+              }
+            ]
+          }
+        ]
       }
+      
+      
+     
       
       
       
