@@ -289,7 +289,6 @@
           }
         ]
       },
-     
       {
         "id": "select-country",
         "fields": [
@@ -298,16 +297,25 @@
             "valueType": "string",
             "name": "popup_title",
             "label": "Popup Title",
-            "value": "Select Your Country"
+            "value": ""
           },
           {
-            "component": "reference",
-            "name": "image",
-            "label": "Button Image",
-            "valueType": "string"
+            "component": "image",
+            "valueType": "string",
+            "name": "image_label",
+            "label": "Country Button Image",
+            "value": "/content/dam/hero-aem-website/brand/design/flags/india.png"
+          },
+          {
+            "component": "image",
+            "valueType": "string",
+            "name": "close_icon",
+            "label": "Close Icon Image",
+            "value": "/content/dam/hero-aem-website/brand/design/icons/close.png"
           }
         ]
       }
+      
       
       
       
