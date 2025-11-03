@@ -290,27 +290,26 @@
         ]
       },
      
+      {
+        "id": "select-country",
+        "fields": [
           {
-            "id": "select-country",
-            "fields": [
-              { "component": "text", "valueType": "string", "name": "popup_title", "label": "Popup Title", "value": "Select Your Country" },
-              { "component": "text", "valueType": "string", "name": "button_label", "label": "Button Label", "value": "Select Country" }
-            ]
+            "component": "text",
+            "valueType": "string",
+            "name": "popup_title",
+            "label": "Popup Title",
+            "value": "Select Your Country"
           },
           {
-            "id": "select-country-option",
-            "fields": [
-              { "component": "reference", "valueType": "string", "name": "option_flag", "label": "Flag", "multi": false },
-              { "component": "text", "valueType": "string", "name": "option_name", "label": "Name", "value": "" },
-              { "component": "text", "valueType": "string", "name": "option_cta", "label": "CTA URL", "value": "" }
-            ]
-          },
-          {
-            "id": "select-country-button",
-            "fields": [
-              { "component": "text", "valueType": "string", "name": "button_label", "label": "Label", "value": "Continue" }
-            ]
+            "component": "image",
+            "valueType": "string",
+            "name": "image_label",
+            "label": "Button Image",
+            "value": "/content/dam/hero-aem-website/brand/design/flags/india.png"
           }
+        ]
+      }
+      
       
       
       
