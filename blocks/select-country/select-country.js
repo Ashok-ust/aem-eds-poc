@@ -4,8 +4,8 @@ export default function decorate(block) {
     // --- Fetch AEM model data (fallback to defaults) ---
     const model = window.aemComponents?.['select-country'] || {};
     const popupTitle = model.popup_title || 'Select Your Country';
-    const flagIcon = model.button_flag || '/content/dam/hero-aem-website/brand/design/flags/india.png';
-    const closeIcon = model.close_icon || '/content/dam/hero-aem-website/brand/design/icons/close.png';
+    const flagIcon = model.button_flag || '';
+    const closeIcon = model.close_icon || '';
   
     // Clear block content
     block.innerHTML = '';
