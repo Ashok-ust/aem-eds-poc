@@ -17,7 +17,8 @@
       "columns",
       "fragment",
       "simple-card",
-      "splendor-price"
+      "splendor-price",
+      "select-country"
     ]
   },
   {
@@ -39,13 +40,6 @@
       "image",
       "button",
       "title"
-    ]
-  },
-  {
-    "id": "select-country",
-    "components": [
-      "select-country-option",
-      "select-country-button"
     ]
   }
 ]
