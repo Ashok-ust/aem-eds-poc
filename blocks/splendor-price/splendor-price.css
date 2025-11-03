@@ -1,50 +1,106 @@
-
-.select-country {
+.splendor-price-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 2rem;
-    border-radius: 12px;
-    background-color: #f9f9f9;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+    background: #f5f5f5;
+    padding: 32px;
+    border-radius: 8px;
   }
   
-  .select-country-title {
-    font-size: 1.5rem;
+  .splendor-image img {
+    max-width: 400px;
+    border-radius: 8px;
+  }
+  
+  .splendor-content {
+    flex: 1;
+  }
+  
+  .splendor-content h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  
+  .splendor-filters {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .dropdown label {
+    display: block;
     font-weight: 600;
-    color: #222;
+    margin-bottom: 4px;
   }
   
-  .select-country-option {
+  .dropdown select {
+    width: 324px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .splendor-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+  }
+  .splendor-table .variant-header{
+    width: 52%;
+    font-family: "TSTAR-PRO-Heavy";
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
+  .splendor-table .price{
+    font-family: "TSTAR-PRO-Heavy";
+    font-weight: 900;
+    font-size: 1.5rem;
+  }
+  .splendor-table th,
+  .splendor-table td {
+    font-family: "TSTAR-PRO-Medium";
+    font-weight: 400;
+    font-size: 16px;
+    text-align: left;
+    padding: 12px 8px;
+    /* border-bottom: 1px solid #ddd; */
+  }
+  .splendor-price-wrapper{
+    margin: unset;
+  }
+  .splendor-buttons {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    cursor: pointer;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    transition: background-color 0.2s;
+    gap: 24px;
+    margin-top: 16px;
   }
   
-  .select-country-option:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .select-country-option.selected {
-    background-color: #e0e0ff;
-    border: 2px solid #5a5aff;
-  }
-  
-  .select-country-button {
-    background-color: #5a5aff;
-    color: #fff;
+  .splendor-buttons button {
+    padding: 14px 28px;
+    font-size: 1rem;
     border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    border-radius: 4px;
+    font-weight: 700;
   }
   
-  .select-country-button:hover {
-    background-color: #4848d6;
+  .loan-btn {
+    color: red;
+    border: 2px solid red;
+    background: white;
+  }
+  .loan-btn:hover {
+    color: red;
+    background: white;
+  }
+  .buy-btn:hover {
+    color: white;
+    background:red;
+  }
+  .buy-btn {
+    background: red;
+    color: white;
   }
   

@@ -1,65 +1,43 @@
-export default async function decorate(block) {
-    const apiUrl =
-      "https://dev1.heromotocorp.com/content/experience-fragments/hero-aem-website/in/en/site/modal/master.10.json";
+export default function decorate(block) {
+    // Create main button
+    const button = document.createElement('button');
+    button.className = 'open-popup-btn';
+    button.textContent = 'Select Country';
+    block.appendChild(button);
   
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
+    // Create popup container
+    const popup = document.createElement('div');
+    popup.className = 'country-popup hidden';
+    popup.innerHTML = `
+      <div class="popup-content">
+        <h3>Select Your Country</h3>
+        <ul class="country-list">
+          <li data-id="in"><img src="https://flagcdn.com/w20/in.png"> India</li>
+          <li data-id="us"><img src="https://flagcdn.com/w20/us.png"> United States</li>
+          <li data-id="uk"><img src="https://flagcdn.com/w20/gb.png"> United Kingdom</li>
+          <li data-id="au"><img src="https://flagcdn.com/w20/au.png"> Australia</li>
+        </ul>
+        <button class="close-popup-btn">Close</button>
+      </div>
+    `;
+    document.body.appendChild(popup);
   
-      // Navigate into the JSON to reach "countries"
-      const countries =
-        data["container-item0"]?.modal_comp?.responsivegrid?.country_selector
-          ?.countries || {};
+    // Open popup
+    button.addEventListener('click', () => {
+      popup.classList.remove('hidden');
+    });
   
-      const heading =
-        data["container-item0"]?.modal_comp?.responsivegrid?.country_selector
-          ?.heading || "Please Select Your Country";
+    // Close popup
+    popup.querySelector('.close-popup-btn').addEventListener('click', () => {
+      popup.classList.add('hidden');
+    });
   
-      // Create modal container
-      const modalContainer = document.createElement("div");
-      modalContainer.className = "country-modal-container";
-  
-      // Create modal header
-      const header = document.createElement("h2");
-      header.className = "country-modal-heading";
-      header.textContent = heading;
-      modalContainer.appendChild(header);
-  
-      // Create grid
-      const grid = document.createElement("div");
-      grid.className = "country-grid";
-  
-      // Iterate over all country items
-      Object.keys(countries).forEach((key) => {
-        const item = countries[key];
-        const card = document.createElement("div");
-        card.className = "country-card";
-  
-        const img = document.createElement("img");
-        img.src = item.countryicon || "";
-        img.alt = item.countryname || "";
-  
-        const name = document.createElement("p");
-        name.textContent = item.countryname || "";
-  
-        const link = document.createElement("a");
-        link.href = item.countrypagepath || "#";
-        link.target = "_blank";
-        link.appendChild(img);
-        link.appendChild(name);
-  
-        card.appendChild(link);
-        grid.appendChild(card);
+    // Handle country click
+    popup.querySelectorAll('.country-list li').forEach((item) => {
+      item.addEventListener('click', () => {
+        alert(`You selected: ${item.textContent.trim()}`);
+        popup.classList.add('hidden');
       });
-  
-      modalContainer.appendChild(grid);
-  
-      // Append to block (container in your framework)
-      block.innerHTML = "";
-      block.appendChild(modalContainer);
-    } catch (error) {
-      console.error("Error loading country modal:", error);
-      block.innerHTML = `<p class="error">Failed to load country data.</p>`;
-    }
+    });
   }
   
